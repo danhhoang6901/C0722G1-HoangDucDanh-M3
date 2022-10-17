@@ -95,3 +95,6 @@ so_luong int,
 foreign key (ma_dich_vu_di_kem) references dich_vu_di_kem(ma_dich_vu_di_kem),
 foreign key (ma_hop_dong) references hop_dong(ma_hop_dong)
 );
+
+select * from nhan_vien where ho_ten like 'H%' or ho_ten like 'K%' or ho_ten like 'T%'; 
+select * from khach_hang where dia_chi like '%Đà Nắng%' or dia_chi like '%Quảng Trị%';
