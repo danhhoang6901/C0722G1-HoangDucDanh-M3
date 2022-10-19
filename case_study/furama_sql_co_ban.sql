@@ -27,9 +27,9 @@ loai_khach.ten_loai_khach,
 hop_dong.ma_hop_dong,
 dich_vu.ten_dich_vu,
 hop_dong.ngay_lam_hop_dong,hop_dong.ngay_ket_thuc,
-sum((dich_vu.chi_phi_thue + hop_dong_chi_tiet.so_luong)*dich_vu_di_kem.gia) as tong_tien
-from hop_dong
-left join khach_hang
+sum(dich_vu.chi_phi_thue + hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia) as tong_tien
+from khach_hang
+left join hop_dong
 on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
 left join dich_vu
 on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
