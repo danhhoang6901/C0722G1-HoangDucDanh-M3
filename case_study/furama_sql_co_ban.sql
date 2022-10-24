@@ -229,3 +229,30 @@ select ma_khach_hang as id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi
 from khach_hang;
 
 -- Task 21:
+create view v_nhan_vien as 
+select nhan_vien.* from nhan_vien
+join hop_dong
+on hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
+where nhan_vien.ma_nhan_vien in (
+select hop_dong.ma_nhan_vien from hop_dong
+where hop_dong.ngay_lam_hop_dong = '2019-12-12'
+)
+and nhan_vien.dia_chi like '% Hải Châu';
+drop view v_nhan_vien;
+
+-- Task 22:
+set SQL_SAFE_UPDATES = 0;
+update v_nhan_vien
+set dia_chi = 'Liên Chiểu'
+where dia_chi like '% Hải Châu';
+
+-- Task 23:
+delimiter //
+create procedure sp_xoa_khach_hang (in sp_ma_khach_hang int)
+begin
+delete from khach_hang where khach_hang.ma_khach_hang = sp_ma_khach_hang;
+end //
+delimiter ;
+call sp_xoa_khach_hang(1);
+
+-- Task 24:
