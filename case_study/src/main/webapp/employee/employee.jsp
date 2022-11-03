@@ -36,10 +36,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" style="margin-left: 10px">
-                        <a class="nav-link active" aria-current="page" href="#">Employee</a>
+                        <a class="nav-link active" aria-current="page" href="#">List employee</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Add employee</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link" href="#">Customer</a>
@@ -60,6 +60,39 @@
             </div>
         </div>
     </nav>
+    <div style="height: 70%">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date of birth</th>
+                <th scope="col">Gender</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Danh</td>
+                <td>06/09/20010</td>
+                <td>Male</td>
+                <td><button type="button" class="btn btn-primary">Primary</button></td>
+                <td><button type="button" class="btn btn-primary">Primary</button></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
