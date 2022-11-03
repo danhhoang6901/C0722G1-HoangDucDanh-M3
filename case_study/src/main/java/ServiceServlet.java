@@ -5,14 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "EmployeeServlet",urlPatterns = {"/employee"})
-public class EmployeeServlet extends HttpServlet {
+@WebServlet(name = "ServiceServlet",urlPatterns = {"/service"})
+public class ServiceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("employee/list.jsp").forward(request,response);
+    request.getRequestDispatcher("service/list.jsp").forward(request,response);
     }
 }
