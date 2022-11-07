@@ -38,9 +38,10 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void remove(int id) {
-        products.remove(findById(id));
+    public boolean delete(int id) {
+        return false;
     }
+
 
     @Override
     public List<Product> findByName(String name) {

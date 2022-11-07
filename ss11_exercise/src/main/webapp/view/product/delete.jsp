@@ -36,7 +36,7 @@
                 <td>${product.getProducer()}</td>
             </tr>
             <tr>
-                <td><a value="Delete product">Delete</a></td>
+                <td><input type="submit" value="Delete"></td>
                 <td><a href="/products">Back List Product</a></td>
             </tr>
         </table>

@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" style="margin-left: 10px">
-                        <a class="nav-link active" aria-current="page" href="#">Add employee</a>
+                        <a class="nav-link active" aria-current="page" href="/employee?action=add">Add employee</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link" href="#">Customer</a>
@@ -63,25 +63,72 @@
     </nav>
     <div style="height: 70%">
         <table class="table">
-            <thead>
             <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Name</th>
                 <th scope="col">Date of birth</th>
-                <th scope="col">Gender</th>
+                <th scope="col">Id Card</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Position Id</th>
+                <th scope="col">Education Degree Id</th>
+                <th scope="col">Division Id</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
-            </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Danh</td>
-                <td>06/09/20010</td>
-                <td>Male</td>
-                <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-primary">Delete</button></td>
-            </tr>
+            <c:forEach var="employee" items="${employees}" varStatus="stt">
+                <tr>
+                    <th scope="row">${stt.count}</th>
+                    <td>${employee.getName()}</td>
+                    <td>${employee.getDateOfBirth()}</td>
+                    <td>${employee.getIdCard()}</td>
+                    <td>${employee.getSalary()}</td>
+                    <td>${employee.getPhoneNumber()}</td>
+                    <td>${employee.getEmail()}</td>
+                    <td>${employee.getAddress()}</td>
+                    <td>${employee.getPositionId()}</td>
+                    <td>${employee.getEducationDegreeId()}</td>
+                    <td>${employee.getDivisionId()}</td>
+                    <td>${employee.getUserName()}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </td>
+                    <td>
+                        <button  type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#sp${employee.getId()}">
+                            Delete
+                        </button>
+                        <div id = "sp${employee.getId()}" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete employee</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có muốn xóa nhân viên này?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                                        </button>
+                                        <a href="/employee?action=delete&id=${employee.getId()}"
+                                           class="btn btn-primary">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
+
     </div>
 </div>
 </body>

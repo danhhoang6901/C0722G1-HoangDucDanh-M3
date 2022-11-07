@@ -33,9 +33,6 @@ public class ProductServlet extends HttpServlet {
             case "edit":
                 updateCustomer(request, response);
                 break;
-            case "delete":
-                deleteCustomer(request, response);
-                break;
             case "find":
                 findCustomer(request, response);
                 break;
@@ -60,7 +57,7 @@ public class ProductServlet extends HttpServlet {
                 showEditForm(request, response);
                 break;
             case "delete":
-                showDeleteForm(request, response);
+                deleteCustomer(request, response);
                 break;
             case "view":
                 viewCustomer(request, response);
@@ -170,25 +167,16 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Product product = this.productService.findById(id);
-        RequestDispatcher dispatcher;
-        if (product == null) {
-            dispatcher = request.getRequestDispatcher("error-404.jsp");
-        } else {
-            request.setAttribute("product", product);
-            dispatcher = request.getRequestDispatcher("view/product/delete.jsp");
-        }
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
-        productService.remove(Integer.parseInt(request.getParameter("id")));
+        int id = Integer.parseInt(request.getParameter("id"));
+        boolean check = false;
+        check = productService.delete(id);
+        String mess = "Xóa không thành công";
+        if (check) {
+            mess = "Xóa thành công";
+        }
+        request.setAttribute("mess", mess);
     }
 
     private void viewCustomer(HttpServletRequest request, HttpServletResponse response) {

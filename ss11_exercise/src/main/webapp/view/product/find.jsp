@@ -61,7 +61,7 @@
         <span class="message">${message}</span>
     </c:if>
 </h3>
-<table border="1">
+<table class="table">
     <tr>
         <td>Name Product</td>
         <td>Price</td>
