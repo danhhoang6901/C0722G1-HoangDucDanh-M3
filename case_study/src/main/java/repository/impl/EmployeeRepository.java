@@ -13,6 +13,9 @@ public class EmployeeRepository implements IEmployeeRepository {
             ",salary,phone_number,email,address,position_id,education_degree_id,division_id,username)\n" +
             "values(?,?,?,?,?,?,?,?,?,?,?);";
     private final String DELETE = "update employee set is_delete = 1 where id = ?;";
+    public static final String UPDATE_EMPLOYEE = "update employee set name = ?,date_of_birth=?," +
+            "id_card =?,salary=?,phone_number=?, email= ?, address =?,position_id=?" +
+            ",education_degree_id=?,division_id =?, username =? where id = ?;";
 
     @Override
     public List<Employee> displayAll() {
@@ -67,14 +70,28 @@ public class EmployeeRepository implements IEmployeeRepository {
         return false;
     }
 
-    @Override
-    public Employee findById(int id) {
-        return null;
-    }
 
     @Override
-    public void update(int id, Employee employee) {
-
+    public boolean update(Employee employee) {
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EMPLOYEE);
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setString(2, employee.getDateOfBirth());
+            preparedStatement.setString(3, employee.getIdCard());
+            preparedStatement.setDouble(4, employee.getSalary());
+            preparedStatement.setString(5, employee.getPhoneNumber());
+            preparedStatement.setString(6, employee.getEmail());
+            preparedStatement.setString(7, employee.getAddress());
+            preparedStatement.setInt(8, employee.getPositionId());
+            preparedStatement.setInt(9, employee.getEducationDegreeId());
+            preparedStatement.setInt(10, employee.getDivisionId());
+            preparedStatement.setString(11, employee.getUserName());
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
     @Override

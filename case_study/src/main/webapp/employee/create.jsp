@@ -69,9 +69,9 @@
         <p>
             <a href="/employee" role="button" class="btn btn-primary">Back list employee</a>
         </p>
-        <form method="post">
+        <form action="/employee?action=add" method="post">
             <fieldset>
-                <legend>Information Employee</legend>
+                <legend>Add Employee</legend>
                 <table>
                     <tr>
                         <td>Name:</td>
@@ -118,7 +118,6 @@
                         <td><input type="text" name="userName" id="userName"></td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td><input type="submit" value="Create employee"></td>
                     </tr>
                 </table>

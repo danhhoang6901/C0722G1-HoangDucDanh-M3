@@ -31,13 +31,34 @@ public class EmployeeServlet extends HttpServlet {
                 addEmployee(request, response);
                 break;
             case "edit":
-                break;
-            case "find":
+                updateEmployee(request, response);
                 break;
             default:
                 break;
         }
 
+    }
+
+    private void updateEmployee(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String dateOfBirth = request.getParameter("birthday");
+        String idCard = request.getParameter("idCard");
+        double salary = Double.parseDouble(request.getParameter("salary"));
+        String phoneNumber = request.getParameter("phone");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        int positionId = Integer.parseInt(request.getParameter("position"));
+        int educationDegreeId = Integer.parseInt(request.getParameter("education"));
+        int divisionId = Integer.parseInt(request.getParameter("division"));
+        String userName = request.getParameter("userName");
+        Employee employee = new Employee(name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId, userName);
+        employeeService.update(employee);
+        request.setAttribute("employee", employee);
+        try {
+            response.sendRedirect("/employee");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
@@ -103,14 +124,22 @@ public class EmployeeServlet extends HttpServlet {
                 deleteEmployee(request, response);
                 break;
             case "edit":
-                break;
-            case "find":
+                showEditEmployee(request, response);
                 break;
             default:
                 listEmployee(request, response);
                 break;
         }
 
+    }
+
+    private void showEditEmployee(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/edit.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAddEmployee(HttpServletRequest request, HttpServletResponse response) {

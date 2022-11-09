@@ -41,7 +41,7 @@
                         <a class="nav-link active" aria-current="page" href="/employee">Employee</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
-                        <a class="nav-link" href="#">Customer</a>
+                        <a class="nav-link" href="/customer">Customer</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link" href="/service">Service</a>

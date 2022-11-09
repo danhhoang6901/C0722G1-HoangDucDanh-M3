@@ -16,6 +16,11 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="bootstrap520/css/bootstrap.min.css">
+    <link rel="stylesheet" href="datatables/css/dataTables.bootstrap5.min.css">
+    <script src="jquery/jquery-3.5.1.min.js"></script>
+    <script src="datatables/js/jquery.dataTables.min.js"></script>
+    <script src="datatables/js/dataTables.bootstrap5.min.js"></script>
 </head>
 <body>
 <div class="vh-100">
@@ -62,7 +67,8 @@
         </div>
     </nav>
     <div style="height: 70%">
-        <table class="table">
+        <table class="table table-striped table-bordered" style="width: 100%;" id="tableEmployee">
+            <thead>
             <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Name</th>
@@ -79,6 +85,7 @@
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
             </tr>
+            </thead>
             <tbody>
             <c:forEach var="employee" items="${employees}" varStatus="stt">
                 <tr>
@@ -95,14 +102,15 @@
                     <td>${employee.getDivisionId()}</td>
                     <td>${employee.getUserName()}</td>
                     <td>
-                        <button type="button" class="btn btn-primary">Edit</button>
+                        <a href="/employee?action=edit" class="btn btn-primary" role="button">Edit</a>
                     </td>
                     <td>
-                        <button  type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#sp${employee.getId()}">
                             Delete
                         </button>
-                        <div id = "sp${employee.getId()}" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div id="sp${employee.getId()}" class="modal fade" id="exampleModal" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -131,5 +139,14 @@
 
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#tableEmployee').dataTable({
+            "dom": 'lrtip',
+            "lengthChange": false,
+            "pageLength": 5
+        });
+    });
+</script>
 </body>
 </html>

@@ -9,9 +9,8 @@ public interface IEmployeeService {
 
     boolean add(Employee employee);
 
-    Employee findById(int id);
 
-    void update(int id, Employee employee);
+    boolean update( Employee employee);
 
     boolean remove(int id);
 }

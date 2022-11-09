@@ -9,6 +9,7 @@ import java.util.List;
 
 public class EmployeeService implements IEmployeeService {
     private IEmployeeRepository employeeRepository = new EmployeeRepository();
+
     @Override
     public List<Employee> displayAll() {
         return employeeRepository.displayAll();
@@ -21,13 +22,8 @@ public class EmployeeService implements IEmployeeService {
 
 
     @Override
-    public Employee findById(int id) {
-        return null;
-    }
-
-    @Override
-    public void update(int id, Employee employee) {
-
+    public boolean update( Employee employee) {
+        return employeeRepository.update( employee);
     }
 
     @Override
