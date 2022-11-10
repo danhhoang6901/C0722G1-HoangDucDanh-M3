@@ -33,9 +33,29 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 updateEmployee(request, response);
                 break;
+            case "search":
+                searchEmployee(request, response);
+                break;
             default:
+                listEmployee(request, response);
                 break;
         }
+
+    }
+
+    private void searchEmployee(HttpServletRequest request, HttpServletResponse response) {
+        String nameSearch = request.getParameter("search");
+        List<Employee> employeeList = employeeService.searchEmployee(nameSearch);
+        request.setAttribute("employeeList", employeeList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -53,7 +73,6 @@ public class EmployeeServlet extends HttpServlet {
         String userName = request.getParameter("userName");
         Employee employee = new Employee(name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId, userName);
         employeeService.update(employee);
-        request.setAttribute("employee", employee);
         try {
             response.sendRedirect("/employee");
         } catch (IOException e) {
@@ -134,9 +153,11 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showEditEmployee(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/edit.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employee employee = employeeService.findById(id);
         try {
-            dispatcher.forward(request, response);
+            request.setAttribute("employee", employee);
+            request.getRequestDispatcher("employee/edit.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }

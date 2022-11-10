@@ -27,7 +27,7 @@
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="height: 10%">
         <div class="container-fluid" style="margin-left: 40px">
-            <a class="navbar-brand" href="/employee?action=edit">Edit employee</a>
+            <a style="font-weight: bold" class="navbar-brand" href="/employee?action=edit">Edit employee</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,8 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link active" aria-current="page" href="/employee">List employee</a>
-                    </li><li class="nav-item" style="margin-left: 10px">
+                    </li>
+                    <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link active" aria-current="page" href="/employee?action=add">Add employee</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
@@ -76,43 +77,47 @@
                     </tr>
                     <tr>
                         <td>Date Of Birth:</td>
-                        <td><input type="text" name="birthday" id="birthday"></td>
+                        <td><input type="text" name="birthday" id="birthday" value="${employee.getDateOfBirth()}"></td>
                     </tr>
                     <tr>
                         <td>Id Card:</td>
-                        <td><input type="number" name="idCard" id="idCard"></td>
+                        <td><input type="number" name="idCard" id="idCard" value="${employee.getIdCard()}"></td>
                     </tr>
                     <tr>
                         <td>Salary:</td>
-                        <td><input type="number" name="salary" id="salary"></td>
+                        <td><input type="number" name="salary" id="salary" value="${employee.getSalary()}"></td>
                     </tr>
                     <tr>
                         <td>Phone number:</td>
-                        <td><input type="number" name="phoneNumber" id="phoneNumber"></td>
+                        <td><input type="number" name="phone" id="phone"
+                                   value="${employee.getPhoneNumber()}"></td>
                     </tr>
                     <tr>
                         <td>Email:</td>
-                        <td><input type="text" name="email" id="email"></td>
+                        <td><input type="text" name="email" id="email" value="${employee.getEmail()}"></td>
                     </tr>
                     <tr>
                         <td>Address:</td>
-                        <td><input type="text" name="address" id="address"></td>
+                        <td><input type="text" name="address" id="address" value="${employee.getAddress()}"></td>
                     </tr>
                     <tr>
                         <td>Position Id:</td>
-                        <td><input type="number" name="position" id="positionId"></td>
+                        <td><input type="number" name="position" id="position" value="${employee.getPositionId()}">
+                        </td>
                     </tr>
                     <tr>
                         <td>Education Degree Id:</td>
-                        <td><input type="number" name="education" id="educationDegreeId"></td>
+                        <td><input type="number" name="education" id="education"
+                                   value="${employee.getEducationDegreeId()}"></td>
                     </tr>
                     <tr>
                         <td>Division Id:</td>
-                        <td><input type="number" name="division" id="divisionId"></td>
+                        <td><input type="number" name="division" id="division" value="${employee.getDivisionId()}">
+                        </td>
                     </tr>
                     <tr>
                         <td>User Name:</td>
-                        <td><input type="text" name="userName" id="userName"></td>
+                        <td><input type="text" name="userName" id="userName" value="${employee.getUserName()}"></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Edit employee"></td>

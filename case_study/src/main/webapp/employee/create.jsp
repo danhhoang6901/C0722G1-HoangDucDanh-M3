@@ -27,7 +27,7 @@
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="height: 10%">
         <div class="container-fluid" style="margin-left: 40px">
-            <a class="navbar-brand" href="/employee?action=add">Add employee</a>
+            <a style="font-weight: bold" class="navbar-brand" href="/employee?action=add">Add employee</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -62,63 +62,63 @@
     </nav>
     <div style="height: 70%">
         <p>
+            <a href="/employee" role="button" class="btn btn-primary">Back list employee</a>
+        </p>
+        <p>
             <c:if test="${mess != null}">
                 <span class="message">${mess}</span>
             </c:if>
         </p>
-        <p>
-            <a href="/employee" role="button" class="btn btn-primary">Back list employee</a>
-        </p>
-        <form action="/employee?action=add" method="post">
+        <form method="post">
             <fieldset>
                 <legend>Add Employee</legend>
                 <table>
                     <tr>
                         <td>Name:</td>
-                        <td><input type="text" name="name" id="name"></td>
+                        <td><input type="text" name="name"></td>
                     </tr>
                     <tr>
                         <td>Date Of Birth:</td>
-                        <td><input type="text" name="birthday" id="birthday"></td>
+                        <td><input type="text" name="birthday"></td>
                     </tr>
                     <tr>
                         <td>Id Card:</td>
-                        <td><input type="number" name="idCard" id="idCard"></td>
+                        <td><input type="text" name="idCard"></td>
                     </tr>
                     <tr>
                         <td>Salary:</td>
-                        <td><input type="number" name="salary" id="salary"></td>
+                        <td><input type="text" name="salary"></td>
                     </tr>
                     <tr>
                         <td>Phone number:</td>
-                        <td><input type="number" name="phoneNumber" id="phoneNumber"></td>
+                        <td><input type="text" name="phone"></td>
                     </tr>
                     <tr>
                         <td>Email:</td>
-                        <td><input type="text" name="email" id="email"></td>
+                        <td><input type="text" name="email"></td>
                     </tr>
                     <tr>
                         <td>Address:</td>
-                        <td><input type="text" name="address" id="address"></td>
+                        <td><input type="text" name="address"></td>
                     </tr>
                     <tr>
                         <td>Position Id:</td>
-                        <td><input type="number" name="position" id="positionId"></td>
+                        <td><input type="text" name="position"></td>
                     </tr>
                     <tr>
                         <td>Education Degree Id:</td>
-                        <td><input type="number" name="education" id="educationDegreeId"></td>
+                        <td><input type="text" name="education"></td>
                     </tr>
                     <tr>
                         <td>Division Id:</td>
-                        <td><input type="number" name="division" id="divisionId"></td>
+                        <td><input type="text" name="division"></td>
                     </tr>
                     <tr>
                         <td>User Name:</td>
-                        <td><input type="text" name="userName" id="userName"></td>
+                        <td><input type="text" name="userName"></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Create employee"></td>
+                        <td><button>Create employee</button></td>
                     </tr>
                 </table>
             </fieldset>

@@ -22,12 +22,22 @@ public class EmployeeService implements IEmployeeService {
 
 
     @Override
-    public boolean update( Employee employee) {
-        return employeeRepository.update( employee);
+    public boolean update(Employee employee) {
+        return employeeRepository.update(employee);
     }
 
     @Override
     public boolean remove(int id) {
         return employeeRepository.remove(id);
+    }
+
+    @Override
+    public Employee findById(int id) {
+        return employeeRepository.findById(id);
+    }
+
+    @Override
+    public List<Employee> searchEmployee(String search) {
+        return employeeRepository.searchEmployee(search);
     }
 }

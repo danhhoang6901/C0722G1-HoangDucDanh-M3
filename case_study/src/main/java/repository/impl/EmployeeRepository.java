@@ -9,13 +9,15 @@ import java.util.List;
 
 public class EmployeeRepository implements IEmployeeRepository {
     private final String SELECT_ALL = "select * from employee where is_delete = 0;";
-    private final String INSERT_EMPLOYEE = "insert into employee(`name`,date_of_birth,id_card" +
-            ",salary,phone_number,email,address,position_id,education_degree_id,division_id,username)\n" +
-            "values(?,?,?,?,?,?,?,?,?,?,?);";
+    private final String INSERT_EMPLOYEE = "insert into employee(`name`,date_of_birth,id_card,salary,phone_number" +
+            ",email,address,position_id,education_degree_id,division_id,username)values(?,?,?,?,?,?,?,?,?,?,?);";
     private final String DELETE = "update employee set is_delete = 1 where id = ?;";
     public static final String UPDATE_EMPLOYEE = "update employee set name = ?,date_of_birth=?," +
             "id_card =?,salary=?,phone_number=?, email= ?, address =?,position_id=?" +
             ",education_degree_id=?,division_id =?, username =? where id = ?;";
+    private final String SELECT_ID = "select * from employee where id =?";
+    public static final String SEARCH_NAME_ADDRESS = "select * from employee where is_delete=0 and name like ? and address like ?;";
+
 
     @Override
     public List<Employee> displayAll() {
@@ -73,6 +75,7 @@ public class EmployeeRepository implements IEmployeeRepository {
 
     @Override
     public boolean update(Employee employee) {
+        boolean rowUpdated = false;
         Connection connection = BaseRepository.getConnectDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EMPLOYEE);
@@ -87,11 +90,13 @@ public class EmployeeRepository implements IEmployeeRepository {
             preparedStatement.setInt(9, employee.getEducationDegreeId());
             preparedStatement.setInt(10, employee.getDivisionId());
             preparedStatement.setString(11, employee.getUserName());
-            return preparedStatement.executeUpdate() > 0;
+            preparedStatement.setInt(12, employee.getId());
+            System.out.println(preparedStatement);
+            rowUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return rowUpdated;
     }
 
     @Override
@@ -106,5 +111,46 @@ public class EmployeeRepository implements IEmployeeRepository {
             throwables.printStackTrace();
         }
         return delete;
+    }
+
+    @Override
+    public Employee findById(int id) {
+        Employee employee = null;
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ID);
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String dateOfBirth = resultSet.getString("date_of_birth");
+                String idCard = resultSet.getString("id_card");
+                double salary = resultSet.getDouble("salary");
+                String phoneNumber = resultSet.getString("phone_number");
+                String email = resultSet.getString("email");
+                String address = resultSet.getString("address");
+                int positionId = resultSet.getInt("position_id");
+                int educationDegreeId = resultSet.getInt("education_degree_id");
+                int divisionId = resultSet.getInt("division_id");
+                String userName = resultSet.getString("username");
+                employee = new Employee(id, name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId, userName);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return employee;
+    }
+
+    @Override
+    public List<Employee> searchEmployee(String search) {
+        List<Employee> list = new ArrayList<>();
+        List<Employee> employeeListAll = displayAll();
+        for (Employee item : employeeListAll) {
+            if (item.getName().contains(search)) {
+                list.add(item);
+            }
+        }
+        return list;
     }
 }

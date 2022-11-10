@@ -33,7 +33,7 @@
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="height: 10%">
         <div class="container-fluid" style="margin-left: 40px">
-            <a class="navbar-brand" href="/employee">List employee</a>
+            <a style="font-weight: bold" class="navbar-brand" href="/employee">List employee</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@
                         <a class="nav-link active" aria-current="page" href="/employee?action=add">Add employee</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
-                        <a class="nav-link" href="#">Customer</a>
+                        <a class="nav-link" href="/customer">Customer</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link" href="/service">Service</a>
@@ -57,12 +57,14 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                 </ul>
+                <form action="/employee?action=search" method="post">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input name="search" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
                     <button style="color: black;background: green" class="btn btn-outline-success" type="submit">
                         Search
                     </button>
                 </ul>
+                </form>
             </div>
         </div>
     </nav>
@@ -102,7 +104,7 @@
                     <td>${employee.getDivisionId()}</td>
                     <td>${employee.getUserName()}</td>
                     <td>
-                        <a href="/employee?action=edit" class="btn btn-primary" role="button">Edit</a>
+                        <a href="/employee?action=edit&id=${employee.getId()}" class="btn btn-primary" role="button">Edit</a>
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

@@ -13,4 +13,8 @@ public interface IEmployeeRepository {
     boolean update( Employee employee);
 
     boolean remove(int id);
+
+    Employee findById(int id);
+
+    List<Employee> searchEmployee(String search);
 }

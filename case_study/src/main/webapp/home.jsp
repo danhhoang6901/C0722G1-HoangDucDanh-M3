@@ -29,7 +29,7 @@
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="height: 10%">
         <div class="container-fluid" style="margin-left: 40px">
-            <a class="navbar-brand" href="/home">Home</a>
+            <a style="font-weight: bold" class="navbar-brand" href="/home">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">

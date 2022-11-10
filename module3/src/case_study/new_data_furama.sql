@@ -267,3 +267,7 @@ VALUES(1,5,2,4),
 
 -- Thêm user
 insert into user(username,password,is_delete) value ("danh1","123",0);
+insert into user(username,password,is_delete) value ("danh2","123",0);
+
+insert into user_role(role_id,username,is_delete)value(1,'danh1',0);
+
