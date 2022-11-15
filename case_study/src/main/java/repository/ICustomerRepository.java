@@ -1,6 +1,8 @@
 package repository;
 
 import model.Customer;
+import model.CustomerType;
+import model.Employee;
 
 import java.util.List;
 
@@ -15,4 +17,8 @@ public interface ICustomerRepository {
     boolean remove(int id);
 
     Customer findBbyId(int id);
+
+    List<CustomerType> findAll();
+
+    List<Customer> searchCustomer(String search);
 }

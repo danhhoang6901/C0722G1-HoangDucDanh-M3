@@ -16,7 +16,7 @@ public class EmployeeRepository implements IEmployeeRepository {
             "id_card =?,salary=?,phone_number=?, email= ?, address =?,position_id=?" +
             ",education_degree_id=?,division_id =?, username =? where id = ?;";
     private final String SELECT_ID = "select * from employee where id =?";
-    public static final String SEARCH_NAME_ADDRESS = "select * from employee where is_delete=0 and name like ? and address like ?;";
+    public static final String SEARCH_NAME = "select * from employee where is_delete = 0 and name like ? ;";
 
 
     @Override
@@ -144,13 +144,33 @@ public class EmployeeRepository implements IEmployeeRepository {
 
     @Override
     public List<Employee> searchEmployee(String search) {
-        List<Employee> list = new ArrayList<>();
-        List<Employee> employeeListAll = displayAll();
-        for (Employee item : employeeListAll) {
-            if (item.getName().contains(search)) {
-                list.add(item);
+        List<Employee> employeeSearch = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement ps = connection.prepareStatement(SEARCH_NAME);
+            ps.setString(1, "%" + search + "%");
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String birthDay = resultSet.getString("date_of_birth");
+                String idCard = resultSet.getString("id_card");
+                double salary = resultSet.getDouble("salary");
+                String phone = resultSet.getString("phone_number");
+                String email = resultSet.getString("email");
+                String addressEmployee = resultSet.getString("address");
+                int positionId = resultSet.getInt("position_id");
+                int educationDegreeId = resultSet.getInt("education_degree_id");
+                int divisionId = resultSet.getInt("division_id");
+                String userName = resultSet.getString("username");
+                employeeSearch.add(new Employee(id, name, birthDay, idCard, salary, phone, email, addressEmployee, positionId
+                        , educationDegreeId, divisionId, userName));
+
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return list;
+
+        return employeeSearch;
     }
 }

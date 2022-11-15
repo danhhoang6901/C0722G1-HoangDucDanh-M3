@@ -44,7 +44,7 @@
                         <a class="nav-link" href="/customer">Customer</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
-                        <a class="nav-link" href="/service">Service</a>
+                        <a class="nav-link" href="/facility">Service</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px">
                         <a class="nav-link" href="#">Contract</a>
@@ -62,9 +62,13 @@
     <div class="row" style="height: 70%">
         <div class="col-md-4 col-lg-2 p-0 ">
             <div class="list-group" style="margin-top: 40px">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                    The current link item
-                </a>
+                <div class="card" style="width: 15rem;">
+                    <img src="https://resortdanang.info/wp-content/uploads/2018/11/furama-da-nang.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <b class="card-text">Super wide swimming pool
+                        </b>
+                    </div>
+                </div>
                 <a href="#" class="list-group-item list-group-item-action">A second link item</a>
                 <a href="#" class="list-group-item list-group-item-action">A third link item</a>
                 <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>

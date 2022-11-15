@@ -1,7 +1,7 @@
 package controller;
 
 import model.Customer;
-import model.Employee;
+import model.CustomerType;
 import service.ICustomerService;
 import service.impl.CustomerService;
 
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "CustomerServlet", urlPatterns = {"/customer"})
@@ -33,10 +34,16 @@ public class CustomerServlet extends HttpServlet {
             case "edit":
                 updateCustomer(request, response);
                 break;
+            case "search":
+                searchCustomer(request,response);
+                break;
             default:
                 listCustomer(request, response);
                 break;
         }
+    }
+
+    private void searchCustomer(HttpServletRequest request, HttpServletResponse response) {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
@@ -68,7 +75,9 @@ public class CustomerServlet extends HttpServlet {
 
     private void listCustomer(HttpServletRequest request, HttpServletResponse response) {
         List<Customer> customerList = customerService.displayAll();
+        List<CustomerType> customerTypeList = customerService.findAll();
         request.setAttribute("customers", customerList);
+        request.setAttribute("customerTypeList", customerTypeList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
         try {
             dispatcher.forward(request, response);
@@ -81,6 +90,8 @@ public class CustomerServlet extends HttpServlet {
 
 
     private void showEditCustomer(HttpServletRequest request, HttpServletResponse response) {
+        List<CustomerType> customerTypeList = customerService.findAll();
+        request.setAttribute("customerTypeList",customerTypeList);
         int id = Integer.parseInt(request.getParameter("id"));
         Customer customer = customerService.findById(id);
         try {
@@ -96,9 +107,9 @@ public class CustomerServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean check = false;
         check = customerService.remove(id);
-        String mess = "Xóa không thành công";
+        String mess = "Deletion failed";
         if (check) {
-            mess = "Xóa thành công";
+            mess = "Delete successfully";
         }
         request.setAttribute("mess", mess);
         request.setAttribute("check", check);
@@ -107,6 +118,8 @@ public class CustomerServlet extends HttpServlet {
 
 
     private void showAddCustomer(HttpServletRequest request, HttpServletResponse response) {
+        List<CustomerType> customerTypeList = customerService.findAll();
+        request.setAttribute("customerTypeList",customerTypeList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create.jsp");
         try {
             dispatcher.forward(request, response);
@@ -117,6 +130,7 @@ public class CustomerServlet extends HttpServlet {
 
 
     private void updateCustomer(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String dateOfBirth = request.getParameter("birthday");
         boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
@@ -125,8 +139,14 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         int customerTypeId = Integer.parseInt(request.getParameter("customerTypeId"));
-        Customer customer = new Customer(name, dateOfBirth, gender, idCard, phoneNumber, email, address, customerTypeId);
-        customerService.update(customer);
+        Customer customer = new Customer(id, name, dateOfBirth, gender, idCard, phoneNumber, email, address, customerTypeId);
+        boolean check = customerService.update(customer);
+        String mess = "Update failed";
+        if (check) {
+            mess = "Update successful";
+        }
+        request.setAttribute("mess", mess);
+        request.setAttribute("check", check);
         try {
             response.sendRedirect("/customer");
         } catch (IOException e) {
@@ -146,9 +166,9 @@ public class CustomerServlet extends HttpServlet {
         int customerTypeId = Integer.parseInt(request.getParameter("customerTypeId"));
         Customer customer = new Customer(name, dateOfBirth, gender, idCard, phoneNumber, email, address, customerTypeId);
         boolean check = customerService.add(customer);
-        String mess = "Thêm mới không thành công";
+        String mess = "New add failed";
         if (check) {
-            mess = "Thêm mới thành công";
+            mess = "Successfully added new";
         }
         request.setAttribute("mess", mess);
         try {

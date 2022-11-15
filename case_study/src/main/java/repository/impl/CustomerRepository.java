@@ -1,6 +1,7 @@
 package repository.impl;
 
 import model.Customer;
+import model.CustomerType;
 import model.Employee;
 import repository.ICustomerRepository;
 
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository implements ICustomerRepository {
-    private final String SELECT_ALL = "select * from customer where is_delete = 0;";
+    private final String SELECT_ALL = "select * from customer  where is_delete = 0;";
+    private final String SELECT_CUSTOMER_TYPE = "select * from customer_type where is_delete = 0;";
     private final String INSERT_CUSTOMER = "insert into customer(`name`,date_of_birth,gender,id_card" +
             ",phone_number,email,address,customer_type_id)\n" +
             "values(?,?,?,?,?,?,?,?);";
@@ -20,7 +22,9 @@ public class CustomerRepository implements ICustomerRepository {
     public static final String UPDATE_CUSTOMER = "update customer set name = ?,date_of_birth=?," +
             "gender = ?,id_card =?,phone_number=?, email= ?, address =?" +
             ", customer_type_id =? where id = ?;";
-    private final String SELECT_ID = "select * from employee where id =?";
+
+    public static final String SEARCH_NAME = "select * from customer where is_delete = 0 and name like ? ;";
+
 
     @Override
     public List<Customer> displayAll() {
@@ -61,7 +65,7 @@ public class CustomerRepository implements ICustomerRepository {
             preparedStatement.setString(5, customer.getPhoneNumber());
             preparedStatement.setString(6, customer.getEmail());
             preparedStatement.setString(7, customer.getAddress());
-            preparedStatement.setInt(8, customer.getCustomerTypeId());
+            preparedStatement.setInt(8, customer.getCustomerType());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -82,7 +86,8 @@ public class CustomerRepository implements ICustomerRepository {
             preparedStatement.setString(5, customer.getPhoneNumber());
             preparedStatement.setString(6, customer.getEmail());
             preparedStatement.setString(7, customer.getAddress());
-            preparedStatement.setInt(8, customer.getCustomerTypeId());
+            preparedStatement.setInt(8, customer.getCustomerType());
+            preparedStatement.setInt(9, customer.getId());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -106,14 +111,45 @@ public class CustomerRepository implements ICustomerRepository {
 
     @Override
     public Customer findBbyId(int id) {
-        Customer customer = null;
+        List<Customer> customer = displayAll();
+        for (Customer customer1 : customer) {
+            if (customer1.getId() == id) {
+                return customer1;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<CustomerType> findAll() {
+        List<CustomerType> customerTypeList = new ArrayList<>();
         Connection connection = BaseRepository.getConnectDB();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ID);
-            preparedStatement.setInt(1, id);
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_TYPE);
             System.out.println(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                int customerTypeId = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                CustomerType customerType = new CustomerType(customerTypeId, name);
+                customerTypeList.add(customerType);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return customerTypeList;
+    }
+
+    @Override
+    public List<Customer> searchCustomer(String search) {
+        List<Customer> customerSearch = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement ps = connection.prepareStatement(SEARCH_NAME);
+            ps.setString(1, "%" + search + "%");
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String dateOfBirth = resultSet.getString("date_of_birth");
                 boolean gender = resultSet.getBoolean("gender");
@@ -122,11 +158,14 @@ public class CustomerRepository implements ICustomerRepository {
                 String email = resultSet.getString("email");
                 String address = resultSet.getString("address");
                 int customerTypeId = resultSet.getInt("customer_type_id");
-                customer = new Customer(id, name, dateOfBirth, gender, idCard, phoneNumber, email, address, customerTypeId);
+                customerSearch.add(new Customer(id, name, dateOfBirth,gender, idCard, phoneNumber, email, address,customerTypeId));
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return customer;
+
+        return customerSearch;
+
     }
 }

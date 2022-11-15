@@ -9,23 +9,12 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private String address;
-    private int customerTypeId;
+    private int customerType;
 
     public Customer() {
     }
 
-    public Customer(String name, String dateOfBirth, boolean gender, String idCard, String phoneNumber, String email, String address, int customerTypeId) {
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.idCard = idCard;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.customerTypeId = customerTypeId;
-    }
-
-    public Customer(int id, String name, String dateOfBirth, boolean gender, String idCard, String phoneNumber, String email, String address, int customerTypeId) {
+    public Customer(int id, String name, String dateOfBirth, boolean gender, String idCard, String phoneNumber, String email, String address, int customerType) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -34,7 +23,18 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.customerTypeId = customerTypeId;
+        this.customerType = customerType;
+    }
+
+    public Customer(String name, String dateOfBirth, boolean gender, String idCard, String phoneNumber, String email, String address, int customerType) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.customerType = customerType;
     }
 
     public int getId() {
@@ -101,11 +101,11 @@ public class Customer {
         this.address = address;
     }
 
-    public int getCustomerTypeId() {
-        return customerTypeId;
+    public int getCustomerType() {
+        return customerType;
     }
 
-    public void setCustomerTypeId(int customerTypeId) {
-        this.customerTypeId = customerTypeId;
+    public void setCustomerType(int customerType) {
+        this.customerType = customerType;
     }
 }

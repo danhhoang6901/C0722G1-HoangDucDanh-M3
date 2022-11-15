@@ -1,6 +1,8 @@
 package service;
 
 import model.Customer;
+import model.CustomerType;
+import model.Employee;
 
 import java.util.List;
 
@@ -15,4 +17,9 @@ public interface ICustomerService {
     boolean remove(int id);
 
     Customer findById(int id);
+
+    List<CustomerType> findAll();
+
+    List<Customer> searchCustomer(String search);
+
 }

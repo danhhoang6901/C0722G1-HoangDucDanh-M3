@@ -47,6 +47,7 @@ public class EmployeeServlet extends HttpServlet {
         String nameSearch = request.getParameter("search");
         List<Employee> employeeList = employeeService.searchEmployee(nameSearch);
         request.setAttribute("employeeList", employeeList);
+        request.setAttribute("saveSearch", nameSearch);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
         try {
             dispatcher.forward(request, response);
@@ -55,11 +56,10 @@ public class EmployeeServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void updateEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String dateOfBirth = request.getParameter("birthday");
         String idCard = request.getParameter("idCard");
@@ -71,8 +71,14 @@ public class EmployeeServlet extends HttpServlet {
         int educationDegreeId = Integer.parseInt(request.getParameter("education"));
         int divisionId = Integer.parseInt(request.getParameter("division"));
         String userName = request.getParameter("userName");
-        Employee employee = new Employee(name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId, userName);
-        employeeService.update(employee);
+        Employee employee = new Employee(id, name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId, userName);
+        boolean check = employeeService.update(employee);
+        String mess = "Update failed";
+        if (check) {
+            mess = "Update successful";
+        }
+        request.setAttribute("mess", mess);
+        request.setAttribute("check", check);
         try {
             response.sendRedirect("/employee");
         } catch (IOException e) {
@@ -84,9 +90,9 @@ public class EmployeeServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean check = false;
         check = employeeService.remove(id);
-        String mess = "Xóa không thành công";
+        String mess = "Deletion failed";
         if (check) {
-            mess = "Xóa thành công";
+            mess = "Delete successfully";
         }
         request.setAttribute("mess", mess);
         request.setAttribute("check", check);
@@ -113,9 +119,9 @@ public class EmployeeServlet extends HttpServlet {
         String userName = request.getParameter("userName");
         Employee employee = new Employee(name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId, userName);
         boolean check = employeeService.add(employee);
-        String mess = "Thêm mới không thành công";
+        String mess = "New add failed";
         if (check) {
-            mess = "Thêm mới thành công";
+            mess = "Successfully added new";
         }
         request.setAttribute("mess", mess);
         try {
@@ -174,7 +180,7 @@ public class EmployeeServlet extends HttpServlet {
 
     private void listEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Employee> employeeList = employeeService.displayAll();
-        request.setAttribute("employees", employeeList);
+        request.setAttribute("employeeList", employeeList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
         try {
             dispatcher.forward(request, response);

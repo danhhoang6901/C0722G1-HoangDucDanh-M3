@@ -1,6 +1,8 @@
 package service.impl;
 
 import model.Customer;
+import model.CustomerType;
+import model.Employee;
 import repository.ICustomerRepository;
 import repository.impl.CustomerRepository;
 import service.ICustomerService;
@@ -33,5 +35,15 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer findById(int id) {
         return customerRepository.findBbyId(id);
+    }
+
+    @Override
+    public List<CustomerType> findAll() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public List<Customer> searchCustomer(String search) {
+        return customerRepository.searchCustomer(search);
     }
 }

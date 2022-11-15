@@ -60,14 +60,11 @@
             </div>
         </div>
     </nav>
-    <div style="height: 70%">
+    <div style="height: 70%" align="center">
         <p>
             <c:if test="${mess != null}">
                 <span class="message">${mess}</span>
             </c:if>
-        </p>
-        <p>
-            <a href="/customer" role="button" class="btn btn-primary">Back list employee</a>
         </p>
         <form method="post">
             <fieldset>
@@ -83,8 +80,8 @@
                     </tr>
                     <tr>
                         <td>Gender:</td>
-                        <td><input type="radio" name="gender" value="true" }>Nam
-                            <input type="radio" value="false" name="gender" }>Nữ
+                        <td><input type="radio" name="gender" value="true" }>Male
+                            <input type="radio" value="false" name="gender" }>Female
                         </td>
                     </tr>
                     <tr>
@@ -104,8 +101,14 @@
                         <td><input type="text" name="address" id="address"></td>
                     </tr>
                     <tr>
-                        <td>Customer Type Id:</td>
-                        <td><input type="text" name="customerTypeId" id="customerTypeId"></td>
+                        <td>Customer Type:</td>
+                        <td>
+                               <select name="customerTypeId">
+                                   <c:forEach var="ct" items="${customerTypeList}">
+                                       <option value="${ct.getId()}">${ct.getName()}</option>
+                                   </c:forEach>
+                               </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Create customer"></td>
