@@ -106,7 +106,7 @@
                     <td>${employee.getDivisionId()}</td>
                     <td>${employee.getUserName()}</td>
                     <td>
-                        <a href="/employee?action=edit&id=${employee.getId()}" class="btn btn-primary" role="button">Edit</a>
+                        <a href="/employee?action=edit&id=${employee.getId()}" class= role="button">Edit</a>
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

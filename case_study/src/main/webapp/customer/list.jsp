@@ -82,7 +82,7 @@
                 <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
                 <th scope="col">Address</th>
-                <th scope="col">Customer Type Id</th>
+                <th scope="col">Customer Type</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
             </tr>
@@ -108,7 +108,6 @@
                             <td>${ct.getName()}</td>
                         </c:if>
                     </c:forEach>
-
                     <td>
                         <a href="/customer?action=edit&id=${customer.getId()}" class="btn btn-primary" role="button">Edit</a>
                     </td>
@@ -128,7 +127,8 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Do you want to delete this customer <b style="color: red">${customer.getName()}</b>?
+                                        Do you want to delete this customer <b
+                                            style="color: red">${customer.getName()}</b>?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
@@ -144,7 +144,6 @@
             </c:forEach>
             </tbody>
         </table>
-
     </div>
 </div>
 <footer class="text-center text-lg-start bg-light text-muted">
